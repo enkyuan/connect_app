@@ -33,5 +33,6 @@ export const Colors = {
   },
   gray: "#E5E7EB",
   night: "#141414",
+  warning: "#E11D48",
   tropicalindigo: "#8585FF",
 };
