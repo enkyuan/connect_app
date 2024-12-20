@@ -1,44 +1,54 @@
 // TODO: add color #E5E7EB to the colors defined in constants/Colors.ts
 
-import React from 'react'
-import { TextInput, Text, TextStyle, TextInputProps, View, StyleSheet } from 'react-native'
+import React from "react";
+import {
+  TextInput,
+  Text,
+  TextStyle,
+  TextInputProps,
+  View,
+  StyleSheet,
+} from "react-native";
 
-import { Fonts } from '@/constants/Fonts'
-import { useThemeColor } from '@/hooks/useThemeColor'
+import { Fonts } from "@/constants/Fonts";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { Colors } from "@/constants/Colors";
 
 interface InputProps extends TextInputProps {
   text?: string;
   textStyle?: TextStyle;
-  type?: 'sm' | 'md' | 'lg';
-};
+  type?: "sm" | "md" | "lg";
+}
 
-export function Input({ 
+export function Input({
   style,
   text,
   textStyle,
-  type = 'sm',
+  type = "sm",
   ...rest
 }: InputProps) {
   return (
     <TextInput
       style={[
-        type === 'sm' ? styles.sm : undefined,
-        type === 'md' ? styles.md : undefined,
-        type === 'lg' ? styles.lg : undefined,
+        type === "sm" ? styles.sm : undefined,
+        type === "md" ? styles.md : undefined,
+        type === "lg" ? styles.lg : undefined,
         style,
       ]}
       autoCapitalize="none"
       autoCorrect={false}
-      {...rest}>
+      {...rest}
+    >
       <Text
         style={[
-            type === 'sm' ? styles.smText : undefined,
-            type === 'md' ? styles.mdText : undefined,
-            type === 'lg' ? styles.lgText : undefined,
-            style,
-            textStyle
+          type === "sm" ? styles.smText : undefined,
+          type === "md" ? styles.mdText : undefined,
+          type === "lg" ? styles.lgText : undefined,
+          style,
+          textStyle,
         ]}
-        {...rest}>
+        {...rest}
+      >
         {text}
       </Text>
     </TextInput>
@@ -47,8 +57,8 @@ export function Input({
 
 const styles = StyleSheet.create({
   sm: {
-    flexDirection: 'row',
-    backgroundColor: "#E5E7EB",
+    flexDirection: "row",
+    backgroundColor: Colors.gray,
     borderRadius: 8,
     paddingHorizontal: 16,
     height: "44",
@@ -60,8 +70,8 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.semibold,
   },
   md: {
-    flexDirection: 'row',
-    backgroundColor: "#E5E7EB",
+    flexDirection: "row",
+    backgroundColor: Colors.gray,
     borderRadius: 8,
     paddingHorizontal: 20,
     height: "52",
@@ -73,8 +83,8 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.semibold,
   },
   lg: {
-    flexDirection: 'row',
-    backgroundColor: "#E5E7EB",
+    flexDirection: "row",
+    backgroundColor: Colors.gray,
     borderRadius: 8,
     paddingHorizontal: 20,
     height: "60",
@@ -86,4 +96,3 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.semibold,
   },
 });
-

@@ -16,7 +16,6 @@ module.exports = {
         DEFAULT: "#000000",
         dark: "#0D1321",
       },
-      night: "#141414",
       cornflowerblue: {
         light: "#6495ED",
         dark: "#788BFF",
@@ -27,6 +26,8 @@ module.exports = {
         dark: "#448EE4",
       },
       tropicalindigo: "#8585FF",
+      gray: "#E5E7EB",
+      night: "#141414",
     },
     extend: {},
   },
