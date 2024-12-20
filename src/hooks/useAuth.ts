@@ -89,12 +89,13 @@ export function useAuth() {
           .collection("users")
           .authWithPassword(formData.email, formData.password);
       } else {
-          const filter = `email="${formData.email}"`;
-          const records = await pb.collection("users").getList(1, 1, { filter });
+        const filter = `email="${formData.email}"`;
+        const records = await pb.collection("users").getList(1, 1, { filter });
 
         if (records.totalItems === 0) {
           throw new Error("Username or Email is invalid.");
         }
+      }
 
       navigation.navigate("Home");
 
