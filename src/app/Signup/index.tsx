@@ -10,6 +10,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { useAuth } from "@/hooks/useAuth";
+import { Colors } from "@/constants/Colors";
 
 export default function SignupScreen() {
   const navigation = useNavigation();
@@ -32,6 +33,7 @@ export default function SignupScreen() {
         <View className="mx-[4%]">
           <TouchableOpacity
             onPress={() => navigation.pop()}
+            style={{ backgroundColor: Colors.gray }}
             className="bg-gray-200 rounded-full justify-center items-center h-12 w-12"
           >
             <CaretLeft size={24} color="black" />

@@ -6,6 +6,7 @@ import { Link } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "@/hooks/useAuth";
 
 import { Button } from "@/components/ui/Button";
 import { Colors } from "@/constants/Colors";
@@ -17,6 +18,7 @@ export default function LoginOptionsScreen() {
   const paddingTop = insets.top + 1.6 * insets.top;
 
   const navigation = useNavigation();
+  const auth = useAuth();
 
   return (
     <>
@@ -43,6 +45,7 @@ export default function LoginOptionsScreen() {
           textStyle={{ color: "black", textAlign: "center" }}
           icon={<FontAwesome6 name="google" size={28} color="black" />}
           className="bg-white pl-[10%] border-1 rounded-full my-2 items-center"
+          onPress={() => auth.handleOAuth("google")}
         />
 
         <Button
@@ -75,11 +78,11 @@ export default function LoginOptionsScreen() {
           className="text-sm text-wrap text-gray-500 my-8"
         >
           By signing up, you agree to our{" "}
-          <Link screen="Login">
+          <Link screen="Terms">
             <ThemedText type="link">terms </ThemedText>
           </Link>
           and{" "}
-          <Link screen="Login">
+          <Link screen="PrivacyPolicy">
             <ThemedText type="link">privacy policy </ThemedText>
           </Link>
         </ThemedText>

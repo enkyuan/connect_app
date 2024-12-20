@@ -11,6 +11,11 @@ import { toast } from "sonner-native";
 import { FormData } from "@/hooks/types";
 
 import pb from "@root/pocketbase.config";
+import * as WebBrowser from "expo-web-browser";
+import EventSource from "react-native-sse";
+import "react-native-url-polyfill/auto";
+
+global.EventSource = EventSource;
 
 export function useAuth() {
   const navigation = useNavigation();
@@ -105,6 +110,24 @@ export function useAuth() {
     }
   }
 
+  async function handleOAuth(provider: string) {
+    try {
+      const authData = await pb.collection("users").authWithOAuth2({
+        provider: provider,
+        urlCallback: (url) => {
+          console.log("Opening URL: ", url);
+          WebBrowser.openAuthSessionAsync(url).catch((err) => {
+            console.log("failed to open url", err);
+          });
+        },
+      });
+
+      navigation.navigate("Home");
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }
+
   async function handleSignOut() {
     pb.authStore.clear();
     navigation.popToTop();
@@ -115,6 +138,7 @@ export function useAuth() {
     isValidEmail,
     handleSignUp,
     handleSignIn,
+    handleOAuth,
     handleSignOut,
   };
 }
