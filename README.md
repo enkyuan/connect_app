@@ -55,7 +55,7 @@ bun run ios
 
 ```
 bun run start -c
-docker stop connect_app
+docker stop pb
 ```
 
 ### git
@@ -70,7 +70,7 @@ git push
 ### env variables
 
 * variables used in testing are the pocketbase endpoint & merchant id for stripe
-* by default, `http://localhost:8090` is the default url for pocketbase
+* `http://localhost:8090` is the default url for pocketbase
 * when adding variables, name them according the following convention, i.e.,
   `EXPO_PUBLIC_VARIABLE_NAME=<value>`
 * use `process.env.EXPO_PUBLIC_VARIABLE_NAME` when reading a variable

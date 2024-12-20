@@ -4,7 +4,7 @@
 import React from "react";
 import { Link } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ImageBackground, View, Image, Text } from "react-native";
+import { View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { Button } from "@/components/ui/Button";
@@ -33,7 +33,7 @@ export default function LoginOptionsScreen() {
           type="full"
           text="Sign up"
           textStyle={{ color: "white", textAlign: "center" }}
-          className="bg-black rounded-full my-2 justify-center items-center"
+          className="bg-cornflowerblue-light rounded-full my-2 justify-center items-center"
           onPress={() => navigation.navigate("Signup")}
         />
 
@@ -55,9 +55,9 @@ export default function LoginOptionsScreen() {
 
         <Button
           type="full"
-          text="Continue with Facebook"
+          text="Continue with Instagram"
           textStyle={{ color: "black", textAlign: "center" }}
-          icon={<FontAwesome6 name="facebook" size={28} color="black" />}
+          icon={<FontAwesome6 name="instagram" size={28} color="black" />}
           className="bg-white pl-[10%] border-1 rounded-full my-2 items-center"
         />
 

@@ -1,34 +1,35 @@
-import React from 'react'
-import { Text, TextProps, StyleSheet } from 'react-native'
-import { useThemeColor } from '@/hooks/useThemeColor'
-import { Fonts } from '@/constants/Fonts'
+import React from "react";
+import { Text, TextProps, StyleSheet } from "react-native";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { Fonts } from "@/constants/Fonts";
+import { Colors } from "@/constants/Colors";
 
 interface ThemedTextProps extends TextProps {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?: "default" | "title" | "defaultSemiBold" | "subtitle" | "link";
 }
 
 export const ThemedText = React.forwardRef<Text, ThemedTextProps>(
-  ({ style, lightColor, darkColor, type = 'default', ...rest }, ref) => {
-    const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  ({ style, lightColor, darkColor, type = "default", ...rest }, ref) => {
+    const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
 
     return (
       <Text
         ref={ref}
         style={[
           { color },
-          type === 'default' ? styles.default : undefined,
-          type === 'title' ? styles.title : undefined,
-          type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-          type === 'subtitle' ? styles.subtitle : undefined,
-          type === 'link' ? styles.link : undefined,
+          type === "default" ? styles.default : undefined,
+          type === "title" ? styles.title : undefined,
+          type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,
+          type === "subtitle" ? styles.subtitle : undefined,
+          type === "link" ? styles.link : undefined,
           style,
         ]}
         {...rest}
       />
     );
-  }
+  },
 );
 
 const styles = StyleSheet.create({
@@ -55,5 +56,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 32,
     fontFamily: Fonts.bold,
+    color: Colors.light.blue,
   },
 });
