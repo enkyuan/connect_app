@@ -6,8 +6,11 @@ module.exports = {
   theme: {
     colors: {
       transparent: "transparent",
-      white: "#FFFFFF",
-      whitesmoke: "#F5F5F5",
+      white: {
+        light: "#F5F5F5",
+        DEFAULT: "#FFFFFF",
+        dark: "#FEFEFE",
+      },
       black: {
         light: "#1F1F1F",
         DEFAULT: "#000000",

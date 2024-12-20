@@ -10,7 +10,7 @@ export const Colors = {
   light: {
     text: "#11181C",
     background: "#fff",
-    whitesmoke: "#F5F5F5",
+    white: "#F5F5F5",
     black: "#1F1F1F",
     night: "#141414",
     cornflowerblue: "#6495ED",
@@ -24,7 +24,7 @@ export const Colors = {
   dark: {
     text: "#ECEDEE",
     background: "#151718",
-    whitesmoke: "#F5F5F5",
+    white: "#FEFEFE",
     black: "#0D1321",
     night: "#141414",
     cornflowerblue: "#788BFF",
