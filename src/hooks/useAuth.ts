@@ -5,6 +5,7 @@
 //    passwords don't match
 //    invalid email
 //    email doesn't exist
+//    account exists with <oauth-provider>
 
 import { useNavigation } from "@react-navigation/native";
 import { toast } from "sonner-native";
@@ -85,7 +86,7 @@ export function useAuth() {
     console.log(formData);
   }
 
-  async function handleSignIn(formData: FormData) {
+  async function handleSignIn(formData: FormData): Promise<void> {
     try {
       let authData;
 
@@ -110,7 +111,7 @@ export function useAuth() {
     }
   }
 
-  async function handleOAuth(provider: string) {
+  async function handleOAuth(provider: string): Promise<void> {
     try {
       const authData = await pb.collection("users").authWithOAuth2({
         provider: provider,
@@ -121,14 +122,22 @@ export function useAuth() {
           });
         },
       });
-
       navigation.navigate("Home");
+
+      const { meta } = authData;
+      const OAuthData = {
+        name: meta?.name,
+        email: meta?.email,
+        avatarURL: meta?.avatarURL,
+      };
+
+      await pb.collection("users").update(authData.record.id, OAuthData);
     } catch (error: any) {
       toast.error(error.message);
     }
   }
 
-  async function handleSignOut() {
+  async function handleSignOut(): Promise<void> {
     pb.authStore.clear();
     navigation.popToTop();
   }

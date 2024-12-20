@@ -62,6 +62,7 @@ export default function LoginOptionsScreen() {
           textStyle={{ color: "black", textAlign: "center" }}
           icon={<FontAwesome6 name="instagram" size={28} color="black" />}
           className="bg-white pl-[10%] border-1 rounded-full my-2 items-center"
+          onPress={() => auth.handleOAuth("instagram")}
         />
 
         <View className="text-nowrap my-4">
