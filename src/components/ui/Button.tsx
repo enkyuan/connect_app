@@ -1,50 +1,58 @@
-import React from 'react'
-import { TouchableOpacity, Text, TextStyle, View, StyleSheet } from 'react-native'
+import React, { ReactNode } from "react";
+import {
+  TouchableOpacity,
+  Text,
+  TextStyle,
+  View,
+  StyleSheet,
+} from "react-native";
 
-import { Fonts } from '@/constants/Fonts'
-import { useThemeColor } from '@/hooks/useThemeColor'
+import { Fonts } from "@/constants/Fonts";
 
 interface ButtonProps {
+  style?: any;
   text?: string;
   textStyle?: TextStyle;
   icon?: ReactNode;
   onPress?: () => void;
-  type?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-};
+  type?: "sm" | "md" | "lg" | "xl" | "full";
+}
 
-export function Button({ 
+export function Button({
   style,
   text,
   textStyle,
   icon,
   onPress,
-  type = 'sm',
+  type = "sm",
   ...rest
 }: ButtonProps) {
   return (
     <TouchableOpacity
       style={[
-        type === 'sm' ? styles.sm : undefined,
-        type === 'md' ? styles.md : undefined,
-        type === 'lg' ? styles.lg : undefined,
-        type === 'xl' ? styles.xl : undefined,
-        type === 'full' ? styles.full : undefined,
+        type === "sm" ? styles.sm : undefined,
+        type === "md" ? styles.md : undefined,
+        type === "lg" ? styles.lg : undefined,
+        type === "xl" ? styles.xl : undefined,
+        type === "full" ? styles.full : undefined,
         style,
       ]}
       onPress={onPress}
-      {...rest}>
+      {...rest}
+    >
       <View>{icon}</View>
       <Text
         style={[
-            type === 'sm' ? styles.smText : undefined,
-            type === 'md' ? styles.mdText : undefined,
-            type === 'lg' ? styles.lgText : undefined,
-            type === 'xl' ? styles.xlText : undefined,
-            type === 'full' ? styles.fullText : undefined,
-            style,
-            textStyle
+          type === "sm" ? styles.smText : undefined,
+          type === "md" ? styles.mdText : undefined,
+          type === "lg" ? styles.lgText : undefined,
+          type === "xl" ? styles.xlText : undefined,
+          type === "full" ? styles.fullText : undefined,
+          style,
+          textStyle,
         ]}
-        {...rest}>
+        {...rest}
+      >
         {text}
       </Text>
     </TouchableOpacity>
@@ -53,8 +61,8 @@ export function Button({
 
 const styles = StyleSheet.create({
   sm: {
-    flexDirection: 'row',
-    height: "40",
+    flexDirection: "row",
+    height: 40,
     width: "56%",
   },
   smText: {
@@ -63,8 +71,8 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.medium,
   },
   md: {
-    flexDirection: 'row',
-    height: "44",
+    flexDirection: "row",
+    height: 44,
     width: "68%",
   },
   mdText: {
@@ -73,8 +81,8 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.semibold,
   },
   lg: {
-    flexDirection: 'row',
-    height: "52",
+    flexDirection: "row",
+    height: 52,
     width: "80%",
   },
   lgText: {
@@ -83,8 +91,8 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.semibold,
   },
   xl: {
-    flexDirection: 'row',
-    height: "60",
+    flexDirection: "row",
+    height: 60,
     width: "92%",
   },
   xlText: {
@@ -93,8 +101,8 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.semibold,
   },
   full: {
-    flexDirection: 'row',
-    height: "60",
+    flexDirection: "row",
+    height: 60,
     width: "100%",
   },
   fullText: {

@@ -22,12 +22,30 @@ export function useAuth() {
   const navigation = useNavigation();
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  async function isValidUsername(username: string) {
-    const collection = "users";
-    const filter = `name="${username}"`;
-    const records = await pb.collection(collection).getList(1, 1, { filter });
+  async function isValidUsername(username: string): Promise<boolean> {
+    try {
+      const result = await pb.collection("users").getList(1, 1, {
+        filter: `username = "${username}"`,
+      });
 
-    return records.totalItems === 0;
+      return result.totalItems === 0;
+    } catch (error: any) {
+      console.error("Error checking username:", error);
+      throw new Error("Failed to check if username is valid");
+    }
+  }
+
+  async function isExistingEmail(email: string): Promise<boolean> {
+    try {
+      const result = await pb.collection("users").getList(1, 1, {
+        filter: `email = "${email}"`,
+      });
+
+      return result.totalItems > 0;
+    } catch (error: any) {
+      console.error("Error checking email:", error);
+      throw new Error("Failed to check if email exists");
+    }
   }
 
   function isValidEmail(email: string) {
@@ -65,7 +83,7 @@ export function useAuth() {
   //     return true;
   // }
 
-  async function handleSignUp(formData: FormData): Promise<void> {
+  async function handleSignUp(formData: FormData) {
     // const match = nameRegex.exec(email);
     if (
       isValidEmail(
@@ -73,8 +91,12 @@ export function useAuth() {
       ) /* && isValidPassword(userData.password, userData.passwordConfirm) */
     ) {
       try {
-        await pb.collection("users").create(formData);
+        let authData;
+
+        authData = await pb.collection("users").create(formData);
         navigation.navigate("Home");
+
+        return authData;
       } catch (error: any) {
         toast.error(error.message.toString(), {
           onAutoClose: () => console.log("Auto-closed!"),
@@ -86,7 +108,7 @@ export function useAuth() {
     console.log(formData);
   }
 
-  async function handleSignIn(formData: FormData): Promise<void> {
+  async function handleSignIn(formData: FormData) {
     try {
       let authData;
 
@@ -122,7 +144,7 @@ export function useAuth() {
           });
         },
       });
-      navigation.navigate("Home");
+
 
       const { meta } = authData;
       const OAuthData = {
@@ -130,6 +152,13 @@ export function useAuth() {
         email: meta?.email,
         avatarURL: meta?.avatarURL,
       };
+
+      if () {
+        navigation.navigate("Home");
+      } else {
+        navigation.navigate("Onboarding");
+      }
+
 
       await pb.collection("users").update(authData.record.id, OAuthData);
     } catch (error: any) {
@@ -144,6 +173,7 @@ export function useAuth() {
 
   return {
     isValidUsername,
+    isExistingEmail,
     isValidEmail,
     handleSignUp,
     handleSignIn,

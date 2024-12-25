@@ -9,7 +9,6 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@/hooks/useAuth";
 
 import { Button } from "@/components/ui/Button";
-import { Colors } from "@/constants/Colors";
 import { ThemedText } from "@/components/ThemedText";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 

@@ -17,7 +17,7 @@ export default function SignupScreen() {
 
   const insets = useSafeAreaInsets();
   const paddingTop = insets.top + 0.8 * insets.top;
-  const paddingBottom = insets.bottom;
+  const paddingBottom = insets.bottom + 0.2 * insets.bottom;
 
   const auth = useAuth();
   const [email, setEmail] = useState("");
@@ -93,7 +93,7 @@ export default function SignupScreen() {
               type="full"
               text="Continue"
               textStyle={{ color: "white", textAlign: "center" }}
-              className="bg-black border-1 rounded-full justify-center items-center"
+              className="bg-cornflowerblue-light border-1 rounded-full justify-center items-center"
               onPress={() => {
                 const formData = {
                   email: email,
