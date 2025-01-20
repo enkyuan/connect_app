@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { useAuth } from "@/hooks/useAuth";
 import { Colors } from "@/constants/Colors";
+import { useStorageState } from "@/hooks/useStorageState";
 
 export default function SignupScreen() {
   const navigation = useNavigation();
@@ -22,7 +23,8 @@ export default function SignupScreen() {
   const auth = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [credentials, setCredentials] = useStorageState("credentials");
 
   return (
     <>
@@ -81,7 +83,7 @@ export default function SignupScreen() {
               type="lg"
               placeholder="retype password"
               secureTextEntry={true}
-              onChangeText={(text) => setPasswordConfirm(text)}
+              onChangeText={(text) => setConfirmPassword(text)}
             />
           </View>
 
@@ -98,11 +100,12 @@ export default function SignupScreen() {
                 const formData = {
                   email: email,
                   password: password,
-                  passwordConfirm: passwordConfirm,
+                  passwordConfirm: confirmPassword,
                 };
 
-                console.log(formData);
+                const { passwordConfirm, ...formDataWithoutConfirm } = formData;
 
+                setCredentials(formDataWithoutConfirm);
                 auth.handleSignUp(formData);
               }}
             />

@@ -1,7 +1,7 @@
-// FIXME: use mmkv authStore instead of expo secure store for retrieving token
+// FIXME: use MMKV clientStore instead of expo SecureStore for retrieving token
 
 import * as SecureStore from "expo-secure-store";
-import * as React from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import { Platform } from "react-native";
 
 type UseStateHook<T> = [[boolean, T | null], (value: T | null) => void];
@@ -9,7 +9,7 @@ type UseStateHook<T> = [[boolean, T | null], (value: T | null) => void];
 function useAsyncState<T>(
   initialValue: [boolean, T | null] = [true, null],
 ): UseStateHook<T> {
-  return React.useReducer(
+  return useReducer(
     (
       state: [boolean, T | null],
       action: T | null = null,
@@ -18,7 +18,7 @@ function useAsyncState<T>(
   ) as UseStateHook<T>;
 }
 
-export async function setStorageItemAsync(key: string, value: string | null) {
+export async function setStorageItemAsync(key: string, value: any | null) {
   if (Platform.OS === "web") {
     try {
       if (value === null) {
@@ -29,19 +29,17 @@ export async function setStorageItemAsync(key: string, value: string | null) {
     } catch (e) {
       console.error("Local storage is unavailable:", e);
     }
+  } else if (value == null) {
+    await SecureStore.deleteItemAsync(key);
   } else {
-    if (value == null) {
-      await SecureStore.deleteItemAsync(key);
-    } else {
-      await SecureStore.setItemAsync(key, value);
-    }
+    await SecureStore.setItemAsync(key, value);
   }
 }
 
-export function useStorageState(key: string): UseStateHook<string> {
-  const [state, setState] = useAsyncState<string>();
+export function useStorageState(key: string): UseStateHook<any> {
+  const [state, setState] = useAsyncState<any>();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (Platform.OS === "web") {
       try {
         if (typeof localStorage !== "undefined") {
@@ -57,7 +55,7 @@ export function useStorageState(key: string): UseStateHook<string> {
     }
   }, [key]);
 
-  const setValue = React.useCallback(
+  const setValue = useCallback(
     (value: string | null) => {
       setState(value);
       setStorageItemAsync(key, value);

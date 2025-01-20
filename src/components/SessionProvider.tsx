@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useStorageState } from "@/hooks/useStorageState";
 
@@ -17,11 +17,9 @@ export const AuthContext = createContext<{
 });
 
 export function useSession() {
-  const value = React.useContext(AuthContext);
-  if (process.env.NODE_ENV !== "production") {
-    if (!value) {
-      throw new Error("useSession must be wrapped in a <SessionProvider />");
-    }
+  const value = useContext(AuthContext);
+  if (process.env.NODE_ENV !== "production" && !value) {
+    throw new Error("useSession must be wrapped in a <SessionProvider />");
   }
 
   return value;
@@ -30,16 +28,18 @@ export function useSession() {
 export function SessionProvider(props: React.PropsWithChildren) {
   const auth = useAuth();
   const [[isLoading, session], setSession] = useStorageState("session");
+  const credentials = useStorageState("credentials");
+  const token = useStorageState("token");
 
   return (
     <AuthContext.Provider
       value={{
         signUp: () => {
-          auth.handleSignUp();
+          auth.handleSignUp(credentials);
         },
         signIn: () => {
-          auth.handleSignIn();
-          setSession();
+          auth.handleSignIn(credentials);
+          setSession(token);
         },
         signOut: () => {
           auth.handleSignOut();

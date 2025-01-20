@@ -6,6 +6,7 @@
 //    invalid email
 //    email doesn't exist
 //    account exists with <oauth-provider>
+// TODO: use secure store to add authData to user sessions
 
 import { useNavigation } from "@react-navigation/native";
 import { toast } from "sonner-native";
@@ -15,12 +16,14 @@ import pb from "@root/pocketbase.config";
 import * as WebBrowser from "expo-web-browser";
 import EventSource from "react-native-sse";
 import "react-native-url-polyfill/auto";
+import { useStorageState } from "@/hooks/useStorageState";
 
 global.EventSource = EventSource;
 
 export function useAuth() {
   const navigation = useNavigation();
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const [token, setToken] = useStorageState("token");
 
   async function isValidUsername(username: string): Promise<boolean> {
     try {
@@ -83,7 +86,7 @@ export function useAuth() {
   //     return true;
   // }
 
-  async function handleSignUp(formData: FormData) {
+  async function handleSignUp(formData: FormData | any) {
     // const match = nameRegex.exec(email);
     if (
       isValidEmail(
@@ -94,7 +97,8 @@ export function useAuth() {
         let authData;
 
         authData = await pb.collection("users").create(formData);
-        navigation.navigate("Home");
+
+        setToken(authData?.token);
 
         return authData;
       } catch (error: any) {
@@ -108,7 +112,7 @@ export function useAuth() {
     console.log(formData);
   }
 
-  async function handleSignIn(formData: FormData) {
+  async function handleSignIn(formData: FormData | any) {
     try {
       let authData;
 
@@ -125,7 +129,7 @@ export function useAuth() {
         }
       }
 
-      navigation.navigate("Home");
+      setToken(authData?.token);
 
       return authData;
     } catch (error: any) {
@@ -145,7 +149,6 @@ export function useAuth() {
         },
       });
 
-
       const { meta } = authData;
       const OAuthData = {
         name: meta?.name,
@@ -153,14 +156,8 @@ export function useAuth() {
         avatarURL: meta?.avatarURL,
       };
 
-      if () {
-        navigation.navigate("Home");
-      } else {
-        navigation.navigate("Onboarding");
-      }
-
-
       await pb.collection("users").update(authData.record.id, OAuthData);
+      setToken(authData.token);
     } catch (error: any) {
       toast.error(error.message);
     }
