@@ -1,25 +1,36 @@
-import React from 'react'
-import { Pressable } from 'react-native'
-import { Stack, useRouter } from 'expo-router'
-import { SafeAreaView } from 'react-native'
+import React from "react";
+import { View, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { ThemedView } from '@/components/ThemedView'
-import { ThemedText } from '@/components/ThemedText'
+import { ThemedText } from "@/components/ThemedText";
+import { Colors } from "@/constants/Colors";
+import { CaretLeft } from "phosphor-react-native";
 
-import { NotFoundScreen } from '@/app/NotFound'
+export default function TermsScreen() {
+  const navigation = useNavigation();
 
-export default function SettingsScreen() {
-  const router = useRouter();
+  const insets = useSafeAreaInsets();
+  const paddingTop = insets.top + 1.2 * insets.top;
+  const paddingBottom = insets.bottom;
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Settings' }} />
-      <SafeAreaView>
-        <ThemedText type="title">Settings Screen</ThemedText>
-        <Pressable onPress={() => router.navigate('/NotFound')}>
-          <ThemedText type="link">Go to not found screen!</ThemedText>
-        </Pressable>
-      </SafeAreaView>
+      <View style={{ paddingTop: paddingTop }}>
+        <View
+          className="mx-[6%] flex flex-row items-center"
+          style={{ paddingBottom: paddingBottom }}
+        >
+          <TouchableOpacity
+            onPress={() => navigation.pop()}
+            style={{ backgroundColor: Colors.gray }}
+            className="rounded-full justify-center items-center h-12 w-12 mr-[4%]"
+          >
+            <CaretLeft size={24} color="black" />
+          </TouchableOpacity>
+          <ThemedText type="subtitle">Back</ThemedText>
+        </View>
+      </View>
     </>
   );
 }

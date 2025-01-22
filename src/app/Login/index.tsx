@@ -10,8 +10,7 @@ import { CaretLeft } from "phosphor-react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { useAuth } from "@/hooks/useAuth";
-import { useStorageState } from "@/hooks/useStorageState";
+import { useAuth } from "@/components/SessionProvider";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -20,10 +19,9 @@ export default function LoginScreen() {
   const paddingTop = insets.top + 0.8 * insets.top;
   const paddingBottom = insets.bottom + 0.2 * insets.bottom;
 
-  const auth = useAuth();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [credentials, setCredentials] = useStorageState("credentials");
 
   return (
     <>
@@ -92,13 +90,7 @@ export default function LoginScreen() {
               textStyle={{ color: "white", textAlign: "center" }}
               className="bg-cornflowerblue-light border-1 rounded-full justify-center items-center"
               onPress={() => {
-                const formData = {
-                  email: email,
-                  password: password,
-                };
-
-                setCredentials(formData);
-                auth.handleSignIn(formData);
+                signIn(email, password);
               }}
             />
           </View>

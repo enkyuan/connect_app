@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
+import { useAuth } from "@/components/SessionProvider";
 import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -9,9 +10,7 @@ import { CaretLeft } from "phosphor-react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { useAuth } from "@/hooks/useAuth";
 import { Colors } from "@/constants/Colors";
-import { useStorageState } from "@/hooks/useStorageState";
 
 export default function SignupScreen() {
   const navigation = useNavigation();
@@ -20,11 +19,10 @@ export default function SignupScreen() {
   const paddingTop = insets.top + 0.8 * insets.top;
   const paddingBottom = insets.bottom + 0.2 * insets.bottom;
 
-  const auth = useAuth();
+  const { signUp } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [credentials, setCredentials] = useStorageState("credentials");
 
   return (
     <>
@@ -97,16 +95,7 @@ export default function SignupScreen() {
               textStyle={{ color: "white", textAlign: "center" }}
               className="bg-cornflowerblue-light border-1 rounded-full justify-center items-center"
               onPress={() => {
-                const formData = {
-                  email: email,
-                  password: password,
-                  passwordConfirm: confirmPassword,
-                };
-
-                const { passwordConfirm, ...formDataWithoutConfirm } = formData;
-
-                setCredentials(formDataWithoutConfirm);
-                auth.handleSignUp(formData);
+                signUp(email, password, confirmPassword);
               }}
             />
           </View>

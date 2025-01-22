@@ -26,7 +26,7 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import "react-native-reanimated";
 import "@root/global.css";
 
-import { StackNavigation } from "@/app/Navigation";
+import Navigation from "@/app/Navigation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Toaster } from "sonner-native";
@@ -57,7 +57,7 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <GestureHandlerRootView>
         <SessionProvider>
-          <StackNavigation />
+          <Navigation />
           <Toaster richColors={true} />
           <StatusBar style="auto" />
         </SessionProvider>

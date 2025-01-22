@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useReducer } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useStorageState } from "@/hooks/useStorageState";
+import { Slot } from "expo-router";
 
 import NotFoundScreen from "@/app/NotFound";
 import HomeScreen from "@/app/Feeds/";
@@ -13,18 +13,67 @@ import ResetPasswordScreen from "@/app/Login/ResetPassword";
 import SignupScreen from "@/app/Signup/";
 import TermsScreen from "@/app/Signup/Terms";
 import PrivacyPolicyScreen from "@/app/Signup/PrivacyPolicyScreen";
-import { NavigationContainer } from "@react-navigation/native";
-import { useStorageState } from "@/hooks/useStorageState";
-import { Slot } from "expo-router";
 
-function StackNavigation() {
+export default function Navigation() {
   const Stack = createNativeStackNavigator();
   const token = useStorageState("token");
   const isLoading = useStorageState("session");
 
+  const [state, dispatch] = useReducer(
+    (prevState, action) => {
+      switch (action.type) {
+        case "RESTORE_TOKEN":
+          return {
+            ...prevState,
+            userToken: action.token,
+            isLoading: false,
+          };
+        case "SIGN_IN":
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: action.token,
+          };
+        case "SIGN_OUT":
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+          };
+      }
+    },
+    {
+      isLoading: true,
+      isSignout: false,
+      userToken: null,
+    },
+  );
+
   if (isLoading) {
     return <Slot />;
   }
+
+  useEffect(() => {
+    // Fetch the token from storage then navigate to our appropriate place
+    const bootstrapAsync = async () => {
+      let sessionToken;
+
+      try {
+        // Restore token stored in `SecureStore` or any other encrypted storage
+        sessionToken = await SecureStore.getItemAsync("session");
+      } catch (e) {
+        // Restoring token failed
+      }
+
+      // After restoring token, we may need to validate it in production apps
+
+      // This will switch to the App screen or Auth screen and this loading
+      // screen will be unmounted and thrown away.
+      dispatch({ type: "RESTORE_TOKEN", token: sessionToken });
+    };
+
+    bootstrapAsync();
+  }, []);
 
   return (
     <>
@@ -59,7 +108,3 @@ function StackNavigation() {
     </>
   );
 }
-
-function TabNavigation() {}
-
-export { StackNavigation, TabNavigation };

@@ -6,7 +6,7 @@ import { Link } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/components/SessionProvider";
 
 import { Button } from "@/components/ui/Button";
 import { ThemedText } from "@/components/ThemedText";
@@ -17,7 +17,7 @@ export default function LoginOptionsScreen() {
   const paddingTop = insets.top + 1.6 * insets.top;
 
   const navigation = useNavigation();
-  const auth = useAuth();
+  const { oauth } = useAuth();
 
   return (
     <>
@@ -61,7 +61,7 @@ export default function LoginOptionsScreen() {
           textStyle={{ color: "black", textAlign: "center" }}
           icon={<FontAwesome6 name="instagram" size={28} color="black" />}
           className="bg-white pl-[10%] border-1 rounded-full my-2 items-center"
-          onPress={() => auth.handleOAuth("instagram")}
+          onPress={() => oauth()}
         />
 
         <View className="text-nowrap my-4">

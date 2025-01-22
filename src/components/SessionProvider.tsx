@@ -1,20 +1,31 @@
-import React, { createContext, useContext } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import { useStorageState } from "@/hooks/useStorageState";
+// TODO: add promise & rejection handling in toasts
 
-export const AuthContext = createContext<{
-  signUp: () => void;
-  signIn: () => void;
+import React, { createContext, useContext } from "react";
+import { useStorageState } from "@/hooks/useStorageState";
+import { toast } from "sonner-native";
+import axios from "axios";
+
+interface AuthContextType {
+  signUp: (
+    email: string,
+    password: string,
+    passwordConfirm: string,
+  ) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<void>;
   signOut: () => void;
-  session?: string | null;
+  session: any;
   isLoading: boolean;
-}>({
-  signUp: () => null,
-  signIn: () => null,
-  signOut: () => null,
+}
+
+const AuthContext = createContext<AuthContextType>({
+  signUp: async () => {},
+  signIn: async () => {},
+  signOut: () => {},
   session: null,
   isLoading: false,
 });
+
+export const useAuth = () => useContext(AuthContext);
 
 export function useSession() {
   const value = useContext(AuthContext);
@@ -26,23 +37,49 @@ export function useSession() {
 }
 
 export function SessionProvider(props: React.PropsWithChildren) {
-  const auth = useAuth();
   const [[isLoading, session], setSession] = useStorageState("session");
-  const credentials = useStorageState("credentials");
-  const token = useStorageState("token");
 
   return (
     <AuthContext.Provider
       value={{
-        signUp: () => {
-          auth.handleSignUp(credentials);
+        signUp: async (
+          email: string,
+          password: string,
+          passwordConfirm: string,
+        ) => {
+          try {
+            const response = await axios.post(
+              `${process.env.EXPO_PUBLIC_API_BASE_URL}/signup`,
+              {
+                email,
+                password,
+                passwordConfirm,
+              },
+            );
+
+            setSession(response.data.token);
+          } catch (error: any) {
+            console.error("Sign-up error:", error);
+            throw error;
+          }
         },
-        signIn: () => {
-          auth.handleSignIn(credentials);
-          setSession(token);
+        signIn: async (email: string, password: string) => {
+          try {
+            const response = await axios.post(
+              `${process.env.EXPO_PUBLIC_API_BASE_URL}/signin`,
+              {
+                emailOrUsername: email,
+                password,
+              },
+            );
+
+            setSession(response.data.token);
+          } catch (error: any) {
+            console.error("Sign-in error:", error);
+            throw error;
+          }
         },
         signOut: () => {
-          auth.handleSignOut();
           setSession(null);
         },
         session,
