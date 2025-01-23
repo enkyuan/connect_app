@@ -1,7 +1,9 @@
-import React, { useEffect, useReducer } from "react";
+// TODO: use SessionProvider component to implement protected routes
+
+import React from "react";
+import * as SplashScreen from "expo-splash-screen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useStorageState } from "@/hooks/useStorageState";
-import { Slot } from "expo-router";
+import { useAuth } from "@/components/SessionProvider";
 
 import NotFoundScreen from "@/app/NotFound";
 import HomeScreen from "@/app/Feeds/";
@@ -16,64 +18,12 @@ import PrivacyPolicyScreen from "@/app/Signup/PrivacyPolicyScreen";
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
-  const token = useStorageState("token");
-  const isLoading = useStorageState("session");
-
-  const [state, dispatch] = useReducer(
-    (prevState, action) => {
-      switch (action.type) {
-        case "RESTORE_TOKEN":
-          return {
-            ...prevState,
-            userToken: action.token,
-            isLoading: false,
-          };
-        case "SIGN_IN":
-          return {
-            ...prevState,
-            isSignout: false,
-            userToken: action.token,
-          };
-        case "SIGN_OUT":
-          return {
-            ...prevState,
-            isSignout: true,
-            userToken: null,
-          };
-      }
-    },
-    {
-      isLoading: true,
-      isSignout: false,
-      userToken: null,
-    },
-  );
+  const { session, isLoading } = useAuth();
 
   if (isLoading) {
-    return <Slot />;
+    // TODO: use sonner-native to show a loading toast while loading session
+    SplashScreen.preventAutoHideAsync();
   }
-
-  useEffect(() => {
-    // Fetch the token from storage then navigate to our appropriate place
-    const bootstrapAsync = async () => {
-      let sessionToken;
-
-      try {
-        // Restore token stored in `SecureStore` or any other encrypted storage
-        sessionToken = await SecureStore.getItemAsync("session");
-      } catch (e) {
-        // Restoring token failed
-      }
-
-      // After restoring token, we may need to validate it in production apps
-
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
-      dispatch({ type: "RESTORE_TOKEN", token: sessionToken });
-    };
-
-    bootstrapAsync();
-  }, []);
 
   return (
     <>
@@ -81,7 +31,7 @@ export default function Navigation() {
         initialRouteName="LoginOptions"
         screenOptions={{ headerShown: false }}
       >
-        {token == null ? (
+        {!session ? (
           <>
             <Stack.Screen name="LoginOptions" component={LoginOptionsScreen} />
             <Stack.Screen

@@ -27,6 +27,7 @@ import "react-native-reanimated";
 import "@root/global.css";
 
 import Navigation from "@/app/Navigation";
+import App from "@/app/";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Toaster } from "sonner-native";
@@ -57,7 +58,7 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <GestureHandlerRootView>
         <SessionProvider>
-          <Navigation />
+          <App />
           <Toaster richColors={true} />
           <StatusBar style="auto" />
         </SessionProvider>

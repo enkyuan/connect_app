@@ -1,9 +1,8 @@
-// TODO: add promise & rejection handling in toasts
+// TODO: fill in the sign-up and sign-in logic using pocketbase sdk in ts
 
 import React, { createContext, useContext } from "react";
 import { useStorageState } from "@/hooks/useStorageState";
-import { toast } from "sonner-native";
-import axios from "axios";
+import { pb } from "@/lib/pb.config";
 
 interface AuthContextType {
   signUp: (
@@ -42,44 +41,31 @@ export function SessionProvider(props: React.PropsWithChildren) {
   return (
     <AuthContext.Provider
       value={{
-        signUp: async (
-          email: string,
-          password: string,
-          passwordConfirm: string,
-        ) => {
+        signUp: async (email: string, password: string, passwordConfirm: string) => {
           try {
-            const response = await axios.post(
-              `${process.env.EXPO_PUBLIC_API_BASE_URL}/signup`,
-              {
-                email,
-                password,
-                passwordConfirm,
-              },
-            );
-
-            setSession(response.data.token);
-          } catch (error: any) {
-            console.error("Sign-up error:", error);
+            await pb.collection('users').create({
+              email,
+              password,
+              passwordConfirm,
+            });
+            const authData = await pb.collection('users').authWithPassword(email, password);
+            setSession(authData);
+          } catch (error) {
+            console.error('Sign up error:', error);
             throw error;
           }
         },
         signIn: async (email: string, password: string) => {
           try {
-            const response = await axios.post(
-              `${process.env.EXPO_PUBLIC_API_BASE_URL}/signin`,
-              {
-                emailOrUsername: email,
-                password,
-              },
-            );
-
-            setSession(response.data.token);
-          } catch (error: any) {
-            console.error("Sign-in error:", error);
+            const authData = await pb.collection('users').authWithPassword(email, password);
+            setSession(authData);
+          } catch (error) {
+            console.error('Sign in error:', error);
             throw error;
           }
         },
         signOut: () => {
+          pb.authStore.clear();
           setSession(null);
         },
         session,
