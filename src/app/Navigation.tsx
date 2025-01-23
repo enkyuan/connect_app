@@ -21,7 +21,6 @@ export default function Navigation() {
   const { session, isLoading } = useAuth();
 
   if (isLoading) {
-    // TODO: use sonner-native to show a loading toast while loading session
     SplashScreen.preventAutoHideAsync();
   }
 
