@@ -6,19 +6,19 @@ import { Link } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/components/SessionProvider";
 
 import { Button } from "@/components/ui/Button";
-import { Colors } from "@/constants/Colors";
 import { ThemedText } from "@/components/ThemedText";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import Monicon from "@monicon/native";
 
 export default function LoginOptionsScreen() {
   const insets = useSafeAreaInsets();
   const paddingTop = insets.top + 1.6 * insets.top;
 
   const navigation = useNavigation();
-  const auth = useAuth();
+  const { oauth } = useAuth();
 
   return (
     <>
@@ -43,16 +43,16 @@ export default function LoginOptionsScreen() {
           type="full"
           text="Continue with Google"
           textStyle={{ color: "black", textAlign: "center" }}
-          icon={<FontAwesome6 name="google" size={28} color="black" />}
+          icon={<Monicon name="fa6-brands:google" size={28} color="black" />}
           className="bg-white pl-[10%] border-1 rounded-full my-2 items-center"
-          onPress={() => auth.handleOAuth("google")}
+          onPress={() => oauth('google')}
         />
 
         <Button
           type="full"
           text="Continue with Apple"
           textStyle={{ color: "black", textAlign: "center" }}
-          icon={<FontAwesome6 name="apple" size={36} color="black" />}
+          icon={<Monicon name="fa6-brands:apple" size={32} color="black" />}
           className="bg-white pl-[10%] border-1 rounded-full my-2 items-center"
         />
 
@@ -60,9 +60,9 @@ export default function LoginOptionsScreen() {
           type="full"
           text="Continue with Instagram"
           textStyle={{ color: "black", textAlign: "center" }}
-          icon={<FontAwesome6 name="instagram" size={28} color="black" />}
+          icon={<Monicon name="fa6-brands:instagram" size={28} color="black" />}
           className="bg-white pl-[10%] border-1 rounded-full my-2 items-center"
-          onPress={() => auth.handleOAuth("instagram")}
+          onPress={() => oauth('instagram')}
         />
 
         <View className="text-nowrap my-4">

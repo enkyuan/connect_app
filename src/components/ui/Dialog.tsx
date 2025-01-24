@@ -1,32 +1,41 @@
 // TODO: style dialogue component
 
-import { Pressable, StyleSheet } from 'react-native';
+import React, { ReactNode } from "react";
+import { Pressable, StyleSheet, TextStyle } from "react-native";
 
-import { useThemeColor } from '@/hooks/useThemeColor';
+import { useThemeColor } from "@/hooks/useThemeColor";
 
-export type DialogueProps = {
+export type DialogProps = {
+  style?: any;
+  icon?: ReactNode;
+  text?: string;
+  actions?: ReactNode;
+  textStyle?: TextStyle;
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'md' | 'lg' | 'xl';
+  type?: "default" | "action" | "alert";
 };
 
-export function Dialogue({
+export function Dialog({
   style,
+  icon,
+  text,
+  actions,
+  textStyle,
   lightColor,
   darkColor,
-  type = 'default',
+  type = "default",
   ...rest
-}: ButtonProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+}: DialogProps) {
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
 
   return (
     <Pressable
       style={[
         { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'md' ? styles.md : undefined,
-        type === 'lg' ? styles.lg : undefined,
-        type === 'xl' ? styles.xl : undefined,
+        type === "default" ? styles.default : undefined,
+        type === "action" ? styles.action : undefined,
+        type === "alert" ? styles.alert : undefined,
         style,
       ]}
       {...rest}
@@ -39,18 +48,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
   },
-  md: {
+  action: {
     fontSize: 16,
     lineHeight: 24,
-    fontWeight: '600',
+    fontWeight: "600",
   },
-  lg: {
+  alert: {
     fontSize: 32,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     lineHeight: 32,
-  },
-  xl: {
-    fontSize: 20,
-    fontWeight: 'bold',
   },
 });

@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
-import { CaretLeft } from "phosphor-react-native";
+import Monicon from "@monicon/native";
 
 export default function PrivacyPolicyScreen() {
   const navigation = useNavigation();
@@ -26,7 +26,7 @@ export default function PrivacyPolicyScreen() {
             style={{ backgroundColor: Colors.gray }}
             className="rounded-full justify-center items-center h-12 w-12 mr-[4%]"
           >
-            <CaretLeft size={24} color="black" />
+            <Monicon name="ph:caret-left" size={24} color="black" />
           </TouchableOpacity>
           <ThemedText type="subtitle">Back to Options</ThemedText>
         </View>

@@ -1,11 +1,12 @@
-import { NavigationContainer } from '@react-navigation/native'
+import "@root/gesture-handler.native";
 
-import Navigation from '@/app/Navigation'
+import { NavigationContainer } from "@react-navigation/native";
+import RootNavigation from "@/app/Navigation";
 
-export default function App () {
-    return (
-      <NavigationContainer>
-        <Navigation />
-      </NavigationContainer>
-    )
+export default function App() {
+  return (
+    <NavigationContainer>
+      <RootNavigation />
+    </NavigationContainer>
+  );
 }

@@ -5,6 +5,7 @@ import { Pressable, StyleSheet } from 'react-native';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 export type CardProps = {
+  style?: any;
   lightColor?: string;
   darkColor?: string;
   type?: 'default' | 'md' | 'lg' | 'xl';
@@ -16,7 +17,7 @@ export function Card({
   darkColor,
   type = 'default',
   ...rest
-}: ButtonProps) {
+}: CardProps) {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
 
   return (
