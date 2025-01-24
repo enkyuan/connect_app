@@ -1,4 +1,4 @@
-import "@/app/gesture-handler.native";
+import "@root/gesture-handler.native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { RootNavigation } from "@/app/Navigation";

@@ -11,7 +11,7 @@ export default function SettingsScreen() {
   const navigation = useNavigation();
 
   const insets = useSafeAreaInsets();
-  const paddingTop = insets.top + 1.2 * insets.top;
+  const paddingTop = insets.top + 0.4 * insets.top;
   const paddingBottom = insets.bottom;
 
   return (
@@ -26,9 +26,13 @@ export default function SettingsScreen() {
             style={{ backgroundColor: Colors.gray }}
             className="rounded-full justify-center items-center h-12 w-12 mr-[4%]"
           >
-            <Monicon name="ph:caret-left" size={24} color="black" />
+            <Monicon name="ph:x" size={24} color="black" />
           </TouchableOpacity>
-          <ThemedText type="subtitle">Back</ThemedText>
+        </View>
+        <View className="ml-[8%]">         
+          <ThemedText type="title" className="justify-center">
+            Settings
+          </ThemedText>
         </View>
       </View>
     </>

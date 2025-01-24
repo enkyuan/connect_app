@@ -48,7 +48,7 @@ export function DrawerNavigation() {
           fontFamily: Fonts.semibold
         },
         drawerIcon: ({ color }) => (
-          <Monicon name="ph:clock-bold" size={32} color={color} />
+          <Monicon name="ph:clock-countdown-bold" size={32} color={color} />
         )
       }} />
       <Drawer.Screen name="Settings" component={SettingsScreen} options={{

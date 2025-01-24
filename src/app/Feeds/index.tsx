@@ -10,8 +10,6 @@ import { ThemedText } from "@/components/ThemedText";
 import { Button } from "@/components/ui/Button";
 
 export default function HomeScreen() {
-  const navigation = useNavigation();
-
   const insets = useSafeAreaInsets();
   const paddingTop = insets.top + 1.2 * insets.top;
   const paddingBottom = insets.bottom;
