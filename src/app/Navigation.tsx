@@ -3,6 +3,7 @@
 import React from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { Colors } from "@/constants/Colors";
+import { Fonts } from "@/constants/Fonts";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useAuth } from "@/components/SessionProvider";
@@ -21,9 +22,9 @@ import PrivacyPolicyScreen from "@/app/Signup/PrivacyPolicyScreen";
 import ProfileScreen from "@/app/UserOptions/Profile";
 import RecentsScreen from "@/app/UserOptions/Recents";
 import SettingsScreen from "@/app/UserOptions/";
-import { Fonts } from "@/constants/Fonts";
+import AddAccountScreen from "@/app/UserOptions/AddAccount";
 
-export function DrawerNavigation() {
+function DrawerNavigation() {
   const Drawer = createDrawerNavigator();
   
   return (
@@ -40,6 +41,15 @@ export function DrawerNavigation() {
         },
         drawerIcon: ({ color }) => (
           <Monicon name="ph:user-circle-bold" size={32} color={color} />
+        )
+      }} />
+      <Drawer.Screen name="Add Account" component={AddAccountScreen} options={{
+        drawerLabelStyle: {
+          fontSize: 20,
+          fontFamily: Fonts.semibold
+        },
+        drawerIcon: ({ color }) => (
+          <Monicon name="ph:plus-circle-bold" size={32} color={color} />
         )
       }} />
       <Drawer.Screen name="Recents" component={RecentsScreen} options={{
@@ -64,7 +74,7 @@ export function DrawerNavigation() {
   );
 }
 
-export function RootNavigation() {
+export default function RootNavigation() {
   const Stack = createNativeStackNavigator();
   const { session, isLoading } = useAuth();
 
