@@ -74,7 +74,7 @@ export default function LoginScreen() {
               <ThemedText type="default">
                 Forgot password?{" "}
                 <Link screen="ResetPassword">
-                  <ThemedText type="link">Reset here</ThemedText>
+                  <ThemedText type="link">Reset it</ThemedText>
                 </Link>
               </ThemedText>
             </View>

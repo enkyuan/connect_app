@@ -7,35 +7,32 @@ import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
 import Monicon from "@monicon/native";
 
-export default function RecentsScreen() {
+export default function TermsAndPrivacyScreen() {
   const navigation = useNavigation();
 
   const insets = useSafeAreaInsets();
-  const paddingTop = insets.top + 0.4 * insets.top;
+  const paddingTop = 0.6 * insets.top;
   const paddingBottom = insets.bottom;
 
   return (
     <>
       <View style={{ paddingTop: paddingTop }}>
         <View
-          className="mx-[6%] flex flex-row items-center"
+          className="mx-[6%] flex flex-row justify-between items-center align-middle"
           style={{ paddingBottom: paddingBottom }}
         >
+          <ThemedText type="subtitle" className="justify-center text-center">
+            Terms and Privacy 
+          </ThemedText>
           <TouchableOpacity
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.pop()}
             style={{ backgroundColor: Colors.gray }}
-            className="rounded-full justify-center items-center h-12 w-12 mr-[4%]"
+            className="rounded-full justify-center items-center h-12 w-12"
           >
             <Monicon name="ph:x" size={24} color="black" />
           </TouchableOpacity>
-        </View>
-        <View className="ml-[8%]">         
-          <ThemedText type="title" className="justify-center">
-            Recents 
-          </ThemedText>
         </View>
       </View>
     </>
   );
 }
-

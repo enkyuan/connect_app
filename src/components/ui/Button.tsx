@@ -14,6 +14,7 @@ interface ButtonProps {
   text?: string;
   textStyle?: TextStyle;
   icon?: ReactNode;
+  iconPosition?: string;
   onPress?: () => void;
   type?: "sm" | "md" | "lg" | "xl" | "full";
 }
@@ -23,6 +24,7 @@ export function Button({
   text,
   textStyle,
   icon,
+  iconPosition = "left",
   onPress,
   type = "sm",
   ...rest
@@ -40,7 +42,7 @@ export function Button({
       onPress={onPress}
       {...rest}
     >
-      <View>{icon}</View>
+      {iconPosition !== "right" && icon && <View className="justify-start">{icon}</View>}
       <Text
         style={[
           type === "sm" ? styles.smText : undefined,
@@ -55,6 +57,7 @@ export function Button({
       >
         {text}
       </Text>
+      {iconPosition === "right" && icon && <View className="justify-end">{icon}</View>}
     </TouchableOpacity>
   );
 }
@@ -106,8 +109,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   fullText: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 18,
+    lineHeight: 26,
     fontFamily: Fonts.semibold,
   },
 });

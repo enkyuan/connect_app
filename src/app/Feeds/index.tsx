@@ -14,8 +14,6 @@ export default function HomeScreen() {
   const paddingTop = insets.top + 1.2 * insets.top;
   const paddingBottom = insets.bottom;
 
-  const { signOut } = useAuth();
-
   return (
     <>
       <View
@@ -26,15 +24,6 @@ export default function HomeScreen() {
           <ThemedText type="title" className="justify-center">
             Home Screen
           </ThemedText>
-          <View className="mt-[4%]">
-            <Button
-              type="full"
-              text="Sign out"
-              textStyle={{ color: "white", textAlign: "center" }}
-              className="bg-warning border-1 rounded-full justify-center items-center"
-              onPress={() => signOut()}
-            />
-          </View>
         </View>
       </View>
     </>

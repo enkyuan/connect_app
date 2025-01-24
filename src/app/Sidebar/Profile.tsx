@@ -7,11 +7,11 @@ import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
 import Monicon from "@monicon/native";
 
-export default function SettingsScreen() {
+export default function ProfileScreen() {
   const navigation = useNavigation();
 
   const insets = useSafeAreaInsets();
-  const paddingTop = insets.top + 0.4 * insets.top;
+  const paddingTop = insets.top + 0.2 * insets.top;
   const paddingBottom = insets.bottom;
 
   return (
@@ -31,10 +31,11 @@ export default function SettingsScreen() {
         </View>
         <View className="ml-[8%]">         
           <ThemedText type="title" className="justify-center">
-            Settings
+            Profile
           </ThemedText>
         </View>
       </View>
     </>
   );
 }
+

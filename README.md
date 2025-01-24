@@ -47,15 +47,8 @@ npx pod-install   # for native modules
 ### running
 
 ```
-docker compose up -d
-bun run ios
-```
-
-### resetting
-
-```
-bun run start -c
-docker stop pb
+chmod +x ./scripts/run.sh
+./scripts/run.sh
 ```
 
 ### git
