@@ -17,8 +17,11 @@
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/vector-icons": "^14.0.2",
+    "@monicon/metro": "^1.2.2",
+    "@monicon/native": "^1.2.2",
     "@react-native-google-signin/google-signin": "^13.1.0",
     "@react-navigation/bottom-tabs": "^7.0.0",
+    "@react-navigation/drawer": "^7.1.1",
     "@react-navigation/native": "^7.0.13",
     "expo": "~52.0.11",
     "expo-blur": "~14.0.1",
@@ -57,6 +60,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@iconify/json": "^2.2.299",
     "@types/jest": "^29.5.12",
     "@types/react": "~18.3.12",
     "@types/react-test-renderer": "^18.3.0",

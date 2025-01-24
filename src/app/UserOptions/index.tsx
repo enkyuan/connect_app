@@ -7,7 +7,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
 import Monicon from "@monicon/native";
 
-export default function TermsScreen() {
+export default function SettingsScreen() {
   const navigation = useNavigation();
 
   const insets = useSafeAreaInsets();
@@ -22,15 +22,17 @@ export default function TermsScreen() {
           style={{ paddingBottom: paddingBottom }}
         >
           <TouchableOpacity
-            onPress={() => navigation.pop()}
+            onPress={() => navigation.goBack()}
             style={{ backgroundColor: Colors.gray }}
             className="rounded-full justify-center items-center h-12 w-12 mr-[4%]"
           >
             <Monicon name="ph:caret-left" size={24} color="black" />
           </TouchableOpacity>
-          <ThemedText type="subtitle">Back to Options</ThemedText>
+          <ThemedText type="subtitle">Back</ThemedText>
         </View>
       </View>
     </>
   );
 }
+
+

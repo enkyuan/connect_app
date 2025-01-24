@@ -6,11 +6,11 @@ import { useAuth } from "@/components/SessionProvider";
 import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { CaretLeft } from "phosphor-react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Colors } from "@/constants/Colors";
+import Monicon from "@monicon/native";
 
 export default function SignupScreen() {
   const navigation = useNavigation();
@@ -36,7 +36,7 @@ export default function SignupScreen() {
             style={{ backgroundColor: Colors.gray }}
             className="bg-gray-200 rounded-full justify-center items-center h-12 w-12"
           >
-            <CaretLeft size={24} color="black" />
+            <Monicon name="ph:caret-left" size={24} color="black" />
           </TouchableOpacity>
         </View>
 

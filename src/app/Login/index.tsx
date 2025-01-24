@@ -6,11 +6,11 @@ import { useNavigation, Link } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Colors } from "@/constants/Colors";
-import { CaretLeft } from "phosphor-react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { useAuth } from "@/components/SessionProvider";
+import Monicon from "@monicon/native";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -35,7 +35,7 @@ export default function LoginScreen() {
             style={{ backgroundColor: Colors.gray }}
             className="rounded-full justify-center items-center h-12 w-12"
           >
-            <CaretLeft size={24} color="black" />
+            <Monicon name="ph:caret-left" size={24} color="black" />
           </TouchableOpacity>
         </View>
 
