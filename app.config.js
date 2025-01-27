@@ -1,6 +1,6 @@
 // FIXME: set configuration variables instead of using hardcoded values
 
-module.exports = function (config) {
+exports = function (config) {
   return {
     expo: {
       name: "gather",

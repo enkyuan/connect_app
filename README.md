@@ -47,8 +47,8 @@ npx pod-install   # for native modules
 ### running
 
 ```
-docker compose up -d
-bun run ios
+chmod +x ./scripts/start.sh
+./scripts/start.sh
 ```
 
 ### resetting
