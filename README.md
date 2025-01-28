@@ -47,8 +47,15 @@ npx pod-install   # for native modules
 ### running
 
 ```
-chmod +x ./scripts/run.sh
-./scripts/run.sh
+chmod +x ./scripts/start.sh
+./scripts/start.sh
+```
+
+### resetting
+
+```
+bun run start -c
+docker stop pb
 ```
 
 ### git
