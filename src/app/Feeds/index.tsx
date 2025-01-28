@@ -2,12 +2,9 @@
 
 import React from "react";
 import { View } from "react-native";
-import { useAuth } from "@/components/SessionProvider";
-import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ThemedText } from "@/components/ThemedText";
-import { Button } from "@/components/ui/Button";
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();

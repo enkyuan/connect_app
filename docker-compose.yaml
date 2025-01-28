@@ -1,17 +1,14 @@
 services:
   pb:
-    container_name: pb 
+    container_name: pb
     image: ghcr.io/muchobien/pocketbase:latest
     restart: unless-stopped
     ports:
       - 8090:8090
     volumes:
-      - pb_data:/var/lib/pb_data
+      - /var/lib/pb:/var/lib/pb
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:8090/api/health || exit 1
       interval: 5s
       timeout: 5s
       retries: 5
-
-volumes:
-    pb_data:
