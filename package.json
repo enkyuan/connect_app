@@ -17,6 +17,7 @@
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/vector-icons": "^14.0.2",
+    "@gorhom/bottom-sheet": "^5",
     "@monicon/metro": "^1.2.2",
     "@monicon/native": "^1.2.2",
     "@react-native-google-signin/google-signin": "^13.1.0",

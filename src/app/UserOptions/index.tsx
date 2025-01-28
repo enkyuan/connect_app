@@ -1,5 +1,8 @@
 import React from "react";
 import { View, TouchableOpacity } from "react-native";
+import { Button } from "@/components/ui/Button";
+
+import { useAuth } from "@/components/SessionProvider";
 import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -13,6 +16,8 @@ export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const paddingTop = insets.top + 0.4 * insets.top;
   const paddingBottom = insets.bottom;
+
+  const { signOut } = useAuth();
 
   return (
     <>
@@ -29,10 +34,19 @@ export default function SettingsScreen() {
             <Monicon name="ph:x" size={24} color="black" />
           </TouchableOpacity>
         </View>
-        <View className="ml-[8%]">         
+        <View className="ml-[8%]">
           <ThemedText type="title" className="justify-center">
             Settings
           </ThemedText>
+        </View>
+        <View className="mt-[4%] mx-[8%] items-center">
+          <Button
+            type="full"
+            text="Sign out"
+            textStyle={{ color: "white", textAlign: "center" }}
+            className="bg-warning border-1 rounded-full justify-center items-center"
+            onPress={() => signOut()}
+          />
         </View>
       </View>
     </>
