@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ThemedText } from "@/components/ThemedText";
 
-export default function HomeScreen() {
+export default function NewEventScreen() {
   const insets = useSafeAreaInsets();
   const paddingTop = insets.top + 1.2 * insets.top;
   const paddingBottom = insets.bottom;
@@ -19,7 +19,7 @@ export default function HomeScreen() {
       >
         <View className="mx-[6%]" style={{ paddingBottom: paddingBottom }}>
           <ThemedText type="title" className="justify-center">
-            Home Screen
+            New Event Screen
           </ThemedText>
         </View>
       </View>

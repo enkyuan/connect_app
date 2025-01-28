@@ -10,7 +10,6 @@ import { useAuth } from "@/components/SessionProvider";
 
 import { Button } from "@/components/ui/Button";
 import { ThemedText } from "@/components/ThemedText";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Monicon from "@monicon/native";
 
 export default function LoginOptionsScreen() {
@@ -44,7 +43,7 @@ export default function LoginOptionsScreen() {
           text="Continue with Google"
           textStyle={{ color: "black", textAlign: "center" }}
           icon={<Monicon name="fa6-brands:google" size={28} color="black" />}
-          className="bg-white pl-[10%] border-1 rounded-full my-2 items-center"
+          className="bg-white pl-[8%] border-1 rounded-full my-2 items-center"
           onPress={() => oauth('google')}
         />
 
@@ -53,7 +52,7 @@ export default function LoginOptionsScreen() {
           text="Continue with Apple"
           textStyle={{ color: "black", textAlign: "center" }}
           icon={<Monicon name="fa6-brands:apple" size={32} color="black" />}
-          className="bg-white pl-[10%] border-1 rounded-full my-2 items-center"
+          className="bg-white pl-[8%] border-1 rounded-full my-2 items-center"
         />
 
         <Button
@@ -61,8 +60,8 @@ export default function LoginOptionsScreen() {
           text="Continue with Instagram"
           textStyle={{ color: "black", textAlign: "center" }}
           icon={<Monicon name="fa6-brands:instagram" size={28} color="black" />}
-          className="bg-white pl-[10%] border-1 rounded-full my-2 items-center"
-          onPress={() => oauth('instagram')}
+          className="bg-white pl-[8%] border-1 rounded-full my-2 items-center"
+          onPress={() => oauth('instagram2')}
         />
 
         <View className="text-nowrap my-4">

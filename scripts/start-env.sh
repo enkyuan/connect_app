@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: create script to stop server
+
 # Start the Docker container in detached mode
 echo "Starting Docker container..."
 docker compose up -d

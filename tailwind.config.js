@@ -6,15 +6,15 @@ module.exports = {
   theme: {
     colors: {
       transparent: "transparent",
-      white: {
-        light: "#F5F5F5",
-        DEFAULT: "#FFFFFF",
-        dark: "#FEFEFE",
-      },
       black: {
         light: "#1F1F1F",
         DEFAULT: "#000000",
         dark: "#0D1321",
+      },
+      white: {
+        light: "#F5F5F5",
+        DEFAULT: "#FFFFFF",
+        dark: "#FEFEFE",
       },
       cornflowerblue: {
         light: "#6495ED",
