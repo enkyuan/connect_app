@@ -1,24 +1,29 @@
 // TODO: style badge component
 
 import React, { ReactNode } from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, Text, TextStyle } from "react-native";
 
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { Fonts } from "@/constants/Fonts";
 
-export type BadgeProps = {
+type BadgeProps = {
+  text?: string;
+  textStyle?: TextStyle;
   style?: any;
   icon?: ReactNode;
   lightColor?: string;
   darkColor?: string;
-  type?: "default" | "md" | "lg";
+  type?: "md" | "lg";
 };
 
 export function Badge({
   style,
   icon,
+  text,
+  textStyle,
   lightColor,
   darkColor,
-  type = "default",
+  type = "md",
   ...rest
 }: ButtonProps) {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
@@ -27,7 +32,6 @@ export function Badge({
     <Pressable
       style={[
         { color },
-        type === "default" ? styles.default : undefined,
         type === "md" ? styles.md : undefined,
         type === "lg" ? styles.lg : undefined,
         style,
@@ -48,13 +52,19 @@ export function Badge({
 const styles = StyleSheet.create({
 
   md: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontWeight: "600",
+    backgroundColor: "#3655DB",
+    width: "15%",
+    height: 21,
   },
   lg: {
     fontSize: 32,
     fontWeight: 'bold',
     lineHeight: 32,
   },
+
+  mdTxt:{
+    fontSize: 12,
+    fontWeight: "600",
+    fontFamily: Fonts.medium,
+  }
 });
