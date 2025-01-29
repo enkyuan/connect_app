@@ -1,20 +1,24 @@
 // TODO: style badge component
 
-import { Pressable, StyleSheet } from 'react-native';
+import React, { ReactNode } from "react";
+import { Pressable, StyleSheet } from "react-native";
 
-import { useThemeColor } from '@/hooks/useThemeColor';
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 export type BadgeProps = {
+  style?: any;
+  icon?: ReactNode;
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'md' | 'lg' | 'xl';
+  type?: "default" | "md" | "lg";
 };
 
 export function Badge({
   style,
+  icon,
   lightColor,
   darkColor,
-  type = 'default',
+  type = "default",
   ...rest
 }: ButtonProps) {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
@@ -23,34 +27,34 @@ export function Badge({
     <Pressable
       style={[
         { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'md' ? styles.md : undefined,
-        type === 'lg' ? styles.lg : undefined,
-        type === 'xl' ? styles.xl : undefined,
+        type === "default" ? styles.default : undefined,
+        type === "md" ? styles.md : undefined,
+        type === "lg" ? styles.lg : undefined,
         style,
       ]}
-      {...rest}
-    />
+      {...rest}     
+    >
+      <Text
+      style={[
+        type === "md"? styles.mdTxt : undefined,
+        style,
+        textStyle,
+      ]}
+      >{text}</Text>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  default: {
-    fontSize: 16,
-    lineHeight: 24,
-  },
+
   md: {
     fontSize: 16,
     lineHeight: 24,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   lg: {
     fontSize: 32,
     fontWeight: 'bold',
     lineHeight: 32,
-  },
-  xl: {
-    fontSize: 20,
-    fontWeight: 'bold',
   },
 });
